@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
+import { AuthContext } from "../context/AuthContext";
 import { db } from "../services/firebase";
 
 const theme = {
@@ -12,12 +13,11 @@ const theme = {
   muted: "#A0A0A0",
 };
 
-export default function LoginScreen({ navigation, route }: any) {
-  const setUser = route?.params?.setUser;
+export default function LoginScreen() {
+  const { setUser } = useContext(AuthContext);
   const [role, setRole] = useState<"admin" | "resident" | null>(null);
   const [phone, setPhone] = useState("");
-
-
+  
   const login = async () => {
   if (phone.length < 10) {
     alert("Enter valid phone number");
@@ -36,17 +36,10 @@ export default function LoginScreen({ navigation, route }: any) {
       },
       { merge: true }
     );
-    
-    const userData = { phone, role };
+const userData = { phone, role };
 
-await AsyncStorage.setItem(
-  "user",
-  JSON.stringify(userData)
-);
-
-setUser(userData); 
-
-navigation.replace("Home", { phone, role });
+await AsyncStorage.setItem("user", JSON.stringify(userData));
+setUser(userData);
     
   } catch (e) {
     alert("Failed to login");

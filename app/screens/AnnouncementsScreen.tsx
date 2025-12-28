@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   collection,
   onSnapshot,
@@ -7,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { db } from "../services/firebase";
+
 
 const theme = {
   background: "#121212",
@@ -65,20 +67,20 @@ export default function AnnouncementsScreen({ navigation, route }: any) {
   return (
     <View
       style={{
-        flex: 1,
-        backgroundColor: theme.background,
-        padding: 20,
-      }}
-    >
-      <Text
-        style={{
-          color: theme.text,
-          fontSize: 22,
-          marginBottom: 16,
-        }}
-      >
-        Announcements
-      </Text>
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  }}
+>
+  <MaterialIcons
+    name="campaign"
+    size={24}
+    color="#fff"
+    style={{ marginRight: 8 }}
+  />
+  <Text style={{ color: theme.text, fontSize: 22 }}>
+    Announcements
+  </Text>
 
       {role === "admin" && (
         <Pressable

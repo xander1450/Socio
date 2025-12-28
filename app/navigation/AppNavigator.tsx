@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import AdminDashboardScreen from "../screens/AdminDashboardScreen";
 import AnnouncementsScreen from "../screens/AnnouncementsScreen";
 import CreateAnnouncementScreen from "../screens/CreateAnnouncementScreen";
 import HomeScreen from "../screens/HomeScreen";
@@ -24,16 +24,13 @@ export default function AppNavigator({ user, setUser }: any) {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{ headerShown: false }}
-            initialParams={{ ...user, setUser }}
+            initialParams={user}
           />
           <Stack.Screen name="Issues" component={IssuesListScreen} />
           <Stack.Screen name="RaiseIssue" component={RaiseIssueScreen} />
           <Stack.Screen name="Announcements" component={AnnouncementsScreen} />
-          <Stack.Screen
-            name="CreateAnnouncement"
-            component={CreateAnnouncementScreen}
-          />
+          <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+          <Stack.Screen name="CreateAnnouncement" component={CreateAnnouncementScreen} />
         </>
       )}
     </Stack.Navigator>

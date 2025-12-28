@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext } from "react";
 import { ScrollView, Text } from "react-native";
 import AppButton from "../components/AppButton";
+import { AuthContext } from "../context/AuthContext";
 const theme = {
   background: "#121212",
   card: "#1E1E1E",
@@ -11,7 +13,8 @@ const theme = {
 export default function HomeScreen({ navigation, route }: any) {
   const phone = route?.params?.phone ?? "";
   const role = route?.params?.role ?? "resident";
-  const setUser = route?.params?.setUser;
+  const { setUser } = useContext(AuthContext);
+
 
   return (
     <ScrollView
@@ -22,9 +25,21 @@ export default function HomeScreen({ navigation, route }: any) {
       <Text style={{ color: theme.text, marginBottom: 20 }}>
         Logged in as {role.toUpperCase()}
       </Text>
+      
+
+    {role === "admin" && (
+  <AppButton
+    label="Admin Dashboard"
+    icon="dashboard"
+    onPress={() =>
+      navigation.navigate("AdminDashboard")
+    }
+  />
+)}
 
       <AppButton
   label="Raise Issue"
+  icon="report-problem"
   onPress={() =>
     navigation.navigate("RaiseIssue", { phone, role })
   }
@@ -32,6 +47,7 @@ export default function HomeScreen({ navigation, route }: any) {
 
 <AppButton
   label="View Issues"
+  icon="list-alt"
   onPress={() =>
     navigation.navigate("Issues", { phone, role })
   }
@@ -39,6 +55,7 @@ export default function HomeScreen({ navigation, route }: any) {
 
 <AppButton
   label="Announcements"
+  icon="campaign"
   onPress={() =>
     navigation.navigate("Announcements", { role })
   }
@@ -46,12 +63,14 @@ export default function HomeScreen({ navigation, route }: any) {
 
 <AppButton
   label="Logout"
+  icon="logout"
   danger
   onPress={async () => {
     await AsyncStorage.removeItem("user");
     setUser(null);
   }}
 />
+
 
     </ScrollView>
   );

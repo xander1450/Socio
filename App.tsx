@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-
+import { AuthContext } from "./app/context/AuthContext";
 import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
@@ -27,8 +27,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AppNavigator user={user} setUser={setUser} />
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer>
+        <AppNavigator user={user} />
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }

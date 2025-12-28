@@ -1,8 +1,10 @@
-import { Pressable, Text } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Pressable, Text, View } from "react-native";
 
 export default function AppButton({
   label,
   onPress,
+  icon,
   danger = false,
 }: any) {
   return (
@@ -16,16 +18,32 @@ export default function AppButton({
         opacity: pressed ? 0.7 : 1,
       })}
     >
-      <Text
+      <View
         style={{
-          color: "#FFFFFF",
-          textAlign: "center",
-          fontSize: 16,
-          fontWeight: "500",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {label}
-      </Text>
+        {icon && (
+          <MaterialIcons
+            name={icon}
+            size={22}
+            color="#fff"
+            style={{ marginRight: 10 }}
+          />
+        )}
+
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 16,
+            fontWeight: "500",
+          }}
+        >
+          {label}
+        </Text>
+      </View>
     </Pressable>
   );
 }

@@ -254,7 +254,7 @@ export default function IssuesListScreen({ route }: any) {
     </View>
   );
 
-  /* ---------------- SCREEN ---------------- */
+  /* SCREEN */
   return (
     <View
       style={{
